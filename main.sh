@@ -25,6 +25,9 @@ f_towelroot(){
 read -p "Not Complete. Press [Enter] to continue."
 }
 
+################################
+###Remove Password Protection###
+################################
 f_removelocks(){
 clear
 echo "This will remove the password protection on pre-KitKat ROMs"
