@@ -6,9 +6,6 @@
 deadboltdir=/sdcard/kali-nh/deADBolt
 
 
-
-
-
 f_menu(){
 	clear
 	echo "deADBolt Menu"
