@@ -14,12 +14,9 @@ case $adbver in
 		clear;;
 	*)
 		echo "Unfortuantely ADB needs to be updated to work with deADBolt."
-		echo "This is something that needs to be updated on our end."
-		echo "Occasionally run 'apt-get update && apt-get upgrade' to check"
-		echo "to see if ADB has been updated"
 		echo ""
 		read -p "Press [Enter] to return to exit."
-		;;
+		exit;;
 esac
 
 echo $adbver
